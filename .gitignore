@@ -70,3 +70,8 @@ scripts/training_no_trainer.py
 
 results/
 slurm/
+wandb/
+slurm-logs/
+
+# VSCode
+.vscode/
