@@ -1,0 +1,8 @@
+{
+  "name": "mnli-lex-class",
+  "type": "lex-class",
+  "dataset_name": "multi_nli",
+  "kwargs": {
+    "heuristic": "lex"
+  }
+}

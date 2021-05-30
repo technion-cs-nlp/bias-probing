@@ -1,0 +1,8 @@
+{
+  "name": "snli-lex-class",
+  "type": "lex-class",
+  "dataset_name": "snli",
+  "kwargs": {
+    "heuristic": "lex"
+  }
+}

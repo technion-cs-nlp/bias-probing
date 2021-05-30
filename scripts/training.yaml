@@ -1,0 +1,33 @@
+train_dataset: multi_nli
+swap_labels: false
+training:
+  num_train_epochs: 3
+  warmup_ratio: 0.1
+  weight_decay: 0.0  # Was 0.01 in ConfReg code
+  learning_rate: 5e-5 # Was 5e-5 in ConfReg code
+  train_batch_size: 32
+  eval_batch_size: 16
+  init_classifier: false
+  logging_steps: 2500
+  eval_steps: 5000
+subset_size: -1
+max_seq_length: 128
+seed: 42
+overwrite_cache: false
+do_train: true
+do_eval: true
+freeze_encoder: false
+type: debias
+loss_fn: poe
+weak_model_name_or_path: implicit/bert_tiny
+teacher_model_name_or_path: implicit/bert_mnli
+expert_policy: freeze
+poe_alpha: 0.0
+dfl_gamma: 2.0
+lambda_bias: 1.0
+model_name_or_path: implicit/bert_mnli
+output_dir: checkpoints
+tag: implicit/bert_mnli
+bias_type: hans
+output_model_logits: false
+load_predictions_mode: new

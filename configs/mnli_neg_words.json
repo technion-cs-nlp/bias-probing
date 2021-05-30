@@ -1,0 +1,21 @@
+{
+  "name": "mnli-neg-words",
+  "type": "neg-words",
+  "dataset_name": "multi_nli",
+  "kwargs": {
+    "hypothesis_only": false,
+    "negative_vocab": [
+      "nobody",
+      "no",
+      "not",
+      "never",
+      "nothing",
+      "none",
+      "empty",
+      "neither",
+      "cannot",
+      "'t"
+    ],
+    "n": 1
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "mnli-lex-class-sub",
+  "type": "lex-class",
+  "dataset_name": "multi_nli",
+  "kwargs": {
+    "heuristic": "sub"
+  }
+}

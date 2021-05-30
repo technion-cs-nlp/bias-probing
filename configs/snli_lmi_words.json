@@ -1,0 +1,24 @@
+{
+  "name": "snli-lmi-words",
+  "type": "neg-words",
+  "dataset_name": "snli",
+  "kwargs": {
+    "joint": true,
+    "negative_vocab": [
+      "not",
+      "no",
+      "never",
+      "any",
+      "nothing",
+      "only",
+      "all",
+      "anything",
+      "completely",
+      "always",
+      "none",
+      "nobody",
+      "'t"
+    ],
+    "n": 1
+  }
+}
