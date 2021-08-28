@@ -1,6 +1,6 @@
 # Debiasing Methods in Natural Language Understanding Make Bias More Accessible
 
-_Under review for EMNLP 2021_
+_Accepted as a conference paper for EMNLP 2021_
 
 ---
 > **Abstract**: Model robustness to bias is often determined by the generalization 
