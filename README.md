@@ -20,8 +20,8 @@ _Accepted as a conference paper for EMNLP 2021_
 
 ### Framework
 
-* `bias_probing/` contains models, dataset files and utilities.
-* `scripts/` is the entry point for running the experiments
+* `bias_probing/` contains models, data files, and implementation of the probing framework.
+* `scripts/` is the entry point for running the experiments and training models.
 
 ### Notebooks
 
@@ -63,12 +63,7 @@ _TBD_
 
 ## Citation
 
-If you rely on this code or work, please cite the paper:
-```text
-@TBD{
-    TBD
-}
-```
+_TBD_
 
 ## License
 
