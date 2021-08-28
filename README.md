@@ -23,11 +23,6 @@ _Accepted as a conference paper for EMNLP 2021_
 * `bias_probing/` contains models, data files, and implementation of the probing framework.
 * `scripts/` is the entry point for running the experiments and training models.
 
-### Notebooks
-
-IPython Notebooks are provided in `notebooks/`:
-* `results.ipynb` is the notebook used to reproduce the tables and figures appearing in the paper
-
 ## Environment setup
 
 First, clone this repository
