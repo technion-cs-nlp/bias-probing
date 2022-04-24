@@ -14,12 +14,13 @@ from transformers import (
 )
 from transformers.models.auto import AutoModelForSequenceClassification
 from transformers.models.auto.configuration_auto import AutoConfig
-from transformers.models.bert import BertTokenizerFast
+from transformers.models.bert import BertTokenizerFast, BertForSequenceClassification
 from datasets import DatasetDict
 
 import bias_probing.config as project_config
 from bias_probing.data.datasets import load_dataset_aux
 from bias_probing.training import MultiPredictionDatasetTrainer
+from bias_probing.modelling import BertWithWeakLearnerLegacy
 
 
 # Faster tokenizer for optimization
@@ -69,7 +70,12 @@ def _prepare_model(args: Arguments):
     num_labels = args.num_labels
 
     config = AutoConfig.from_pretrained(model_name_or_path, num_labels=num_labels)
-    model = AutoModelForSequenceClassification.from_pretrained(model_name_or_path, config=config)
+    if 'architectures' in config.__dict__ and 'BertWithWeakLearner' in config.architectures:
+        base_model = BertWithWeakLearnerLegacy.from_pretrained(model_name_or_path, config=config)
+        model = base_model.bert
+        assert isinstance(model, BertForSequenceClassification)
+    else:
+        model = AutoModelForSequenceClassification.from_pretrained(model_name_or_path, config=config)
     return model, config
 
 
@@ -145,6 +151,12 @@ def _training_args(tag, args: Arguments):
 def _init_wandb(args: Arguments):
     tag = args.model_name_or_path
     tag = re.sub('seed:[0-9]+/', '', tag)
+    if args.train_dataset != 'snli':
+        tag += f'/{args.train_dataset}'
+    tag += '/' + '_'.join(
+        (['freeze'] if args.freeze_encoder else []) +
+        (['init'] if args.init_classifier else [])
+    )
 
     if is_wandb_available():
         import wandb

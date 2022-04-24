@@ -7,7 +7,7 @@ from transformers.models.bert import BertPreTrainedModel, BertModel, BertConfig,
 import pandas as pd
 import numpy as np
 
-from loss import DistillLoss, SmoothedDistillLoss, BiasProductBaseline, SmoothedReweightLoss
+from ..loss import DistillLoss, SmoothedDistillLoss, BiasProductBaseline, SmoothedReweightLoss
 
 
 class BertDistillConfig(BertConfig):

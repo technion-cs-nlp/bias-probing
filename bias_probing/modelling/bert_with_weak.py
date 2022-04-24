@@ -7,12 +7,12 @@ import numpy as np
 
 import torch
 from torch import nn
-from transformers import AutoModelForSequenceClassification, WEIGHTS_NAME, is_wandb_available
+from transformers import AutoConfig, AutoModelForSequenceClassification, WEIGHTS_NAME, is_wandb_available
 from transformers.modeling_outputs import SequenceClassifierOutput
 from transformers.models.bert import BertConfig, BertForSequenceClassification, BertPreTrainedModel, BertModel
 from transformers.utils.logging import get_logger
 
-from loss import ProductOfExpertsLoss, EnsembleLoss, DebiasedFocalLoss
+from ..loss import ProductOfExpertsLoss, EnsembleLoss, DebiasedFocalLoss
 from .bias import LexicalBiasModel, HypothesisOnlyModel
 
 if is_wandb_available():
@@ -144,6 +144,23 @@ class BertWithWeakLearner(BertPreTrainedModel):
     #     model = cls(config=config, bert=bert_base.bert, loss_fn=loss_fn)
     #     model.classifier = bert_base.classifier
     #     return model
+
+
+class BertWithWeakLearnerLegacy(BertPreTrainedModel):
+    config_class = BertWithWeakLearnerConfig
+
+    def __init__(self, config: BertWithWeakLearnerConfig):
+        super().__init__(config)
+        # self.weak_learner = weak_learner
+        # self.bert = bert
+        self.config = config
+        self.num_labels = config.num_labels
+        self.bert = BertForSequenceClassification(config)
+        weak_config = AutoConfig.from_pretrained(config.weak_model_name_or_path)
+        weak_config.num_labels = config.num_labels
+        self.weak_learner = BertForSequenceClassification(weak_config)
+        self.loss_fn = _select_loss(config)
+        self.lambda_bias = self.config.lambda_bias
 
 
 class BertWithExplicitBiasConfig(BertWithWeakLearnerConfig):
